@@ -6,6 +6,7 @@ var base_tpl = [
     "<html>",
         "<head>",
         "<meta charset=\"utf-8\">",
+        "<script src=\"js/simplewebsocket.min.js\"></script>",
         "<script src=\"js/stream.js\"></script>",
         "<script src=\"js/midifile.js\"></script>",
         "<script src=\"js/replayer.js\"></script>",

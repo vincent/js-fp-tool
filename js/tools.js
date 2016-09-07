@@ -17,3 +17,11 @@ function loadRemote(path, callback) {
     }
     fetch.send();
 }
+
+var host = '127.0.0.1'; // window.document.location.host.replace(/:.*/, '');
+var ws = new WebSocket('ws://' + host + ':4321');
+
+function sendMidi(midi) {
+  ws.send(JSON.stringify({type:'file', data:midi }));
+}
+

@@ -21,22 +21,29 @@
 // start coding !
 
 function transpose(item) {
-    if (item.subtype == 'noteOn') {
-        item.noteNumber += 5;
-    }
-    return item;
+  if (item.subtype == 'noteOn') {
+    item.noteNumber += 5;
+  }
+  return item;
 }
 
 function filter(midi) {
-    //midi.tracks[2].forEach(transpose);
-    return midi;
+  //midi.tracks[2].forEach(transpose);
+  return midi;
 }
 
 loadRemote('midi/sml.mid', function(data) {
-    midiFile = filter(MidiFile(data));
-    synth = Synth(44100);
-    replayer = Replayer(midiFile, synth);
-    audio = AudioPlayer(replayer);
+  midiFile = filter(MidiFile(data));
+
+  debugger;
+
+  sendMidi(midiFile);
+
+  debugger;
+
+  var synth = Synth(44100);
+  var replayer = Replayer(midiFile, synth);
+  AudioPlayer(replayer);
 })
 
 

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <h1>Paris Web - Programmation fonctionnelle</h1>
+    <meta charset="UTF-8">
+    <script src="js/stream.js"></script>
+    <script src="js/midifile.js"></script>
+    <script src="js/replayer.js"></script>
+    <script src="js/synth.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/tools.js"></script>
+  </head>
+  <body>
+    <h1 id="ip"></h1>
+    <div id="clients"></div>
+
+    <button id="play"></button>
+
+    <script>
+      var host = '127.0.0.1'; // window.document.location.host.replace(/:.*/, '');
+      var ws = new WebSocket('ws://' + host + ':4321');
+
+      function play(midiFile) {
+        var synth = Synth(44100);
+        var replayer = Replayer(midiFile, synth);
+        AudioPlayer(replayer);
+      }
+
+      document.getElementById('play').addEventListener('click', function () {
+        ws.send(JSON.stringify({ type:'play' }));
+      });
+
+      var clients = {};
+      function newClient (event) {
+        var client = {
+          activity: function (c) {
+            console.log('client %o blink', c);
+          }
+        };
+        return clients[id] = client;
+      }
+
+      ws.onmessage = function (message) {
+        var event = JSON.parse(message.data);
+        console.log(event);
+
+        switch (event.type) {
+
+          case 'ip':
+            document.getElementById('ip').innerHTML = event.data.map(function (i) { return i.ip; }).join('<br>');
+            break;
+
+          case 'gotfile':
+            console.log('got file');
+            break;
+
+          case 'play':
+            play(event.data);
+            break;
+
+        }
+
+        //var client = clients[id] || newClient(event);
+        //client.activity();
+      };
+    </script>
+  </body>
+</html>
