@@ -3,6 +3,7 @@ const electron = require('electron')
 const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
+const addExercicesMenu = require('./lib/exercices-menu')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -25,12 +26,15 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  addExercicesMenu(mainWindow);
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow)
+//app.on('ready', addExercicesMenu)
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {

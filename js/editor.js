@@ -48,9 +48,7 @@ var js_editor = CodeMirror.fromTextArea(js_box, {
     gutter: true,
     lineNumbers: true,
     mode: 'javascript',
-
     onChange: function () {
-        console.log('1')
         run();
     }
 });
@@ -60,6 +58,11 @@ js_editor.on("change", function(js_editor, change) {
   run();
 });
 /* */
+
+var ipcRenderer = require('electron').ipcRenderer;
+ipcRenderer.on('load-exercice', function (event, data) {
+    js_editor.setValue(data.text.toString());
+});
 
 document.querySelector('#run').addEventListener('click', run);
 

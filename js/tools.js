@@ -18,10 +18,47 @@ function loadRemote(path, callback) {
     fetch.send();
 }
 
-var host = '127.0.0.1'; // window.document.location.host.replace(/:.*/, '');
-var ws = new WebSocket('ws://' + host + ':4321');
-
-function sendMidi(midi) {
-  ws.send(JSON.stringify({type:'file', data:midi }));
+function playMidi(midi) {
+  var synth = Synth(44100);
+  var replayer = Replayer(midiFile, synth);
+  AudioPlayer(replayer);
 }
 
+function simpleMidi() {
+    return {
+      header:{
+        formatType:1,
+        trackCount:7,
+        ticksPerBeat:192
+      },
+      tracks: [
+        [
+          {deltaTime:0,   channel:0, type:"channel","noteNumber":73, velocity:110, subtype:"noteOn"},
+          {deltaTime:46,  channel:0, type:"channel", subtype:"noteOff","noteNumber":73, velocity:64},
+          {deltaTime:50,  channel:0, type:"channel","noteNumber":72, velocity:110, subtype:"noteOn"},
+          {deltaTime:46,  channel:0, type:"channel", subtype:"noteOff","noteNumber":72, velocity:64},
+          {deltaTime:2,   channel:0, type:"channel","noteNumber":73, velocity:110, subtype:"noteOn"},
+          {deltaTime:46,  channel:0, type:"channel", subtype:"noteOff","noteNumber":73, velocity:64},
+          {deltaTime:50,  channel:0, type:"channel","noteNumber":76, velocity:110, subtype:"noteOn"},
+          {deltaTime:46,  channel:0, type:"channel", subtype:"noteOff","noteNumber":76, velocity:64},
+          {deltaTime:2,   channel:0, type:"channel","noteNumber":75, velocity:110, subtype:"noteOn"},
+          {deltaTime:46,  channel:0, type:"channel", subtype:"noteOff","noteNumber":75, velocity:64},
+          {deltaTime:50,  channel:0, type:"channel","noteNumber":76, velocity:110, subtype:"noteOn"},
+          {deltaTime:46,  channel:0, type:"channel", subtype:"noteOff","noteNumber":76, velocity:64},
+          {deltaTime:2,   channel:0, type:"channel","noteNumber":81, velocity:110, subtype:"noteOn"},
+          {deltaTime:46,  channel:0, type:"channel", subtype:"noteOff","noteNumber":81, velocity:64},
+          {deltaTime:50,  channel:0, type:"channel","noteNumber":73, velocity:110, subtype:"noteOn"},
+          {deltaTime:46,  channel:0, type:"channel", subtype:"noteOff","noteNumber":73, velocity:64},
+          {deltaTime:2,   channel:0, type:"channel","noteNumber":74, velocity:110, subtype:"noteOn"},
+          {deltaTime:46,  channel:0, type:"channel", subtype:"noteOff","noteNumber":74, velocity:64},
+          {deltaTime:242, channel:0, type:"channel","noteNumber":86, velocity:110, subtype:"noteOn"},
+          {deltaTime:46,  channel:0, type:"channel", subtype:"noteOff","noteNumber":86, velocity:64},
+          {deltaTime:0,   type:"meta", subtype:"endOfTrack"}
+        ]
+      ]
+    };
+}
+
+function simpleTrack() {
+    return simpleMidi().tracks[0];
+}

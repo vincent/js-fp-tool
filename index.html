@@ -14,53 +14,19 @@
   </head>
   <body>
     <div id="js" class="code_box">
-      <div class="api">
-        simpleTrack()
-      </div>
-      <textarea name="js" >
+      <textarea name="js">
 // start coding !
 
-function transpose(item) {
-  if (item.subtype == 'noteOn') {
-    item.noteNumber += 5;
-  }
-  return item;
-}
+console.log("j'apparait dans la console :)");
 
-function filter(midi) {
-  //midi.tracks[2].forEach(transpose);
-  return midi;
-}
+debugger;
 
-loadRemote('midi/sml.mid', function(data) {
-  midiFile = filter(MidiFile(data));
-
-  debugger;
-
-  sendMidi(midiFile);
-
-  debugger;
-
-  var synth = Synth(44100);
-  var replayer = Replayer(midiFile, synth);
-  AudioPlayer(replayer);
-})
+console.log("ici aussi");
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-</textarea>
+      </textarea>
     </div>
 
     <button id="run">Execute</button>
