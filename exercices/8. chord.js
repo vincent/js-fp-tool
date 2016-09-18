@@ -19,7 +19,7 @@ function transpose (interval, note) {
 
 function isNote(n){ return n.subtype.match(/note/) }
 
-var midi = simpleMidi()
+var midi = F.simpleMidi()
 
 
 midi.tracks[0] = midi.tracks[0].filter(isNote).flatMap(function(note){
@@ -30,5 +30,5 @@ midi.tracks[0] = midi.tracks[0].filter(isNote).flatMap(function(note){
 
 console.log(midi);
 
-playMidi(midi)
+F.playMidi(midi)
 

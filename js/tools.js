@@ -1,5 +1,6 @@
+var Functional = window.F = { }
 
-function loadRemote(path, callback) {
+Functional.loadRemote = function(path, callback) {
     var fetch = new XMLHttpRequest();
     fetch.open('GET', path);
     fetch.overrideMimeType("text/plain; charset=x-user-defined");
@@ -17,15 +18,15 @@ function loadRemote(path, callback) {
         }
     }
     fetch.send();
-}
+};
 
-function playMidi(midi) {
+Functional.playMidi = function(midi) {
   var synth = Synth(44100);
   var replayer = Replayer(midi, synth);
   AudioPlayer(replayer);
 }
 
-function simpleMidi() {
+Functional.simpleMidi = function() {
     return {
       header:{
         formatType:1,
@@ -60,11 +61,11 @@ function simpleMidi() {
     };
 }
 
-function simpleTrack() {
-    return simpleMidi().tracks[0];
+Functional.simpleTrack = function () {
+    return F.simpleMidi().tracks[0];
 }
 
-function keyboard () {
+Functional.keyboard = function () {
   return [
     '<style>',
       '#keybox {width:910px; margin-left: -7px; text-align: center;}',
@@ -110,3 +111,17 @@ function keyboard () {
   ].join('');
 }
 
+Functional.createWebSocket = function (host) {
+  var deferred = Q.defer();
+
+  var ws = new WebSocket('ws://' + host + ':4321');
+
+  ws.onopen = function (error) {
+    if (error) {
+      return deferred.reject(new Error(error));
+    }
+    deferred.resolve(text);
+  }
+
+  return deferred.promise;
+}

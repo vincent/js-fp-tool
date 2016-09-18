@@ -1,4 +1,4 @@
-document.getElementById('sandbox').innerHTML = keyboard();
+document.getElementById('sandbox').innerHTML = F.keyboard();
 
 
 function press(key, state) {
@@ -18,6 +18,6 @@ function next(tab, i) {
   }
 }
 
-var track = simpleTrack().filter(function(n) {return n.subtype.match(/note/);});
+var track = F.simpleTrack().filter(function(n) {return n.subtype.match(/note/);});
 
 next(track, 0);

@@ -12,16 +12,16 @@ function filter(midi) {
   return midi;
 }
 
-var host = '127.0.0.1'; // window.document.location.host.replace(/:.*/, '');
-var ws = new WebSocket('ws://' + host + ':4321');
+function sendMidiFile (ws) {
 
-function sendMidi(midi) {
-  ws.send(JSON.stringify({type:'file', data:midi }));
-}
+  function sendMidi(midi) {
+    ws.send(JSON.stringify({type:'file', data:midi }));
+  }
 
-ws.onopen = function () {
-  loadRemote('midi/sml.mid', function(data) {
+  F.loadRemote('midi/sml.mid', function(data) {
     midiFile = filter(MidiFile(data));
+
+    debugger;
 
     sendMidi(midiFile);
 
@@ -31,6 +31,9 @@ ws.onopen = function () {
       var replayer = Replayer(midiFile, synth);
       AudioPlayer(replayer);
     };
-
   })
 }
+
+F.createWebSocket('127.0.0.1').then(sendMidiFile);
+
+
