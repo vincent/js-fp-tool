@@ -12,7 +12,6 @@ function filter(midi) {
   return midi;
 }
 
-var host = '127.0.0.1'; // window.document.location.host.replace(/:.*/, '');
 var ws = new WebSocket('ws://' + host + ':4321');
 
 function sendMidi(midi) {
@@ -28,3 +27,9 @@ ws.onopen = function () {
     sendMidi(midiFile);
   })
 }
+
+
+///////
+
+// USE PROMISES
+

@@ -7,6 +7,7 @@ var base_tpl = [
         "<head>",
         "<meta charset=\"utf-8\">",
         "<script src=\"js/simplewebsocket.min.js\"></script>",
+        "<script src=\"js/vexflow-min.js\"></script>",
         "<script src=\"js/stream.js\"></script>",
         "<script src=\"js/midifile.js\"></script>",
         "<script src=\"js/replayer.js\"></script>",
@@ -15,6 +16,7 @@ var base_tpl = [
         "<script src=\"js/tools.js\"></script>",
         "</head>",
         "<body>",
+        '<section id="sandbox"></section>',
         "</body>",
     "</html>"
 ].join('\n');
