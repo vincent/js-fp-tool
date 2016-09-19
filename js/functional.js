@@ -1,32 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>JSDoc: Source: tools.js</title>
-
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
-</head>
-
-<body>
-
-<div id="main">
-
-    <h1 class="page-title">Source: tools.js</h1>
-
-    
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
+/**
  * Librairie fonctionnelle.
  * @namespace Functional
  */
@@ -122,7 +94,7 @@ Functional.extend = function () {
 /**
  * Récupère un fichier MIDI.
  * @param {String}         path     URL
- * @param {Function}       callback Callback de la forme function(midi)
+ * @param {Function}       callback Callback de la forme function(error, midi)
  * @return {XMLHttpRequest} Requete AJAX
  */
 Functional.loadRemote = function(path, callback) {
@@ -130,19 +102,33 @@ Functional.loadRemote = function(path, callback) {
   fetch.open('GET', path);
   fetch.overrideMimeType("text/plain; charset=x-user-defined");
   fetch.onreadystatechange = function() {
-    if(this.readyState == 4 &amp;&amp; this.status == 200) {
-      /* munge response into a binary string */
-      var t = this.responseText || "" ;
-      var ff = [];
-      var mx = t.length;
-      var scc= String.fromCharCode;
-      for (var z = 0; z &lt; mx; z++) {
-        ff[z] = scc(t.charCodeAt(z) &amp; 255);
+    if (this.readyState == 4) {
+      if (this.status == 200) {
+        /* munge response into a binary string */
+        var t = this.responseText || "" ;
+        var ff = [];
+        var mx = t.length;
+        var scc= String.fromCharCode;
+        for (var z = 0; z < mx; z++) {
+          ff[z] = scc(t.charCodeAt(z) & 255);
+        }
+        callback(null, MidiFile(ff.join("")));
+      } else {
+        callback(new Error('cannot load file'));
       }
-      callback(MidiFile(ff.join("")));
     }
   }
   fetch.send();
+};
+
+Functional.loadRemotePromised = function (path) {
+  var deferred = Q.defer();
+  Functional.loadRemote(path, function (error, midi) {
+    return error ? 
+      deferred.reject(new Error(error)) :
+      deferred.resolve(midi);
+  });
+  return deferred.promise;
 };
 
 /**
@@ -163,7 +149,7 @@ Functional.playMidi = function(midi) {
  */
 Functional.keyboard = function () {
   return [
-    '&lt;style>',
+    '<style>',
       '#keybox {width:910px; margin-left: -7px; text-align: center;}',
       '#blackkeys { position: absolute; z-index: 2; padding-left: 10px; margin-left: 41px; width:806px; height: 0px;}',
       '.key { display:inline-block; }',
@@ -171,39 +157,39 @@ Functional.keyboard = function () {
       '.spacer { display:inline-block; width: 62px; height: 0; }',
       '.white { background: white; width: 60px; height: 250px; border: 1px solid black; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; }',
       '.pressed { background: gray }',
-    '&lt;/style>',
+    '</style>',
 
-    '&lt;div id="keybox">',
-      '&lt;div id="blackkeys">',
-        '&lt;span id="k61" class="black key">&lt;/span>',
-        '&lt;span id="k63" class="black key">&lt;/span>',
-        '&lt;span class="spacer">&lt;/span>',
-        '&lt;span id="k66" class="black key">&lt;/span>',
-        '&lt;span id="k68" class="black key">&lt;/span>',
-        '&lt;span id="k70" class="black key">&lt;/span>',
-        '&lt;span class="spacer">&lt;/span>',
-        '&lt;span id="k73" class="black key">&lt;/span>',
-        '&lt;span id="k75" class="black key">&lt;/span>',
-        '&lt;span class="spacer">&lt;/span>',
-        '&lt;span id="k78" class="black key">&lt;/span>',
-        '&lt;span id="k80" class="black key">&lt;/span>',
-        '&lt;span id="k82" class="black key">&lt;/span>',
-      '&lt;/div>',
-      '&lt;span id="k60" class="white key">&lt;/span>',
-      '&lt;span id="k62" class="white key">&lt;/span>',
-      '&lt;span id="k64" class="white key">&lt;/span>',
-      '&lt;span id="k65" class="white key">&lt;/span>',
-      '&lt;span id="k67" class="white key">&lt;/span>',
-      '&lt;span id="k69" class="white key">&lt;/span>',
-      '&lt;span id="k71" class="white key">&lt;/span>',
-      '&lt;span id="k72" class="white key">&lt;/span>',
-      '&lt;span id="k74" class="white key">&lt;/span>',
-      '&lt;span id="k76" class="white key">&lt;/span>',
-      '&lt;span id="k77" class="white key">&lt;/span>',
-      '&lt;span id="k79" class="white key">&lt;/span>',
-      '&lt;span id="k81" class="white key">&lt;/span>',
-      '&lt;span id="k83" class="white key">&lt;/span>',
-    '&lt;/div>'
+    '<div id="keybox">',
+      '<div id="blackkeys">',
+        '<span id="k61" class="black key"></span>',
+        '<span id="k63" class="black key"></span>',
+        '<span class="spacer"></span>',
+        '<span id="k66" class="black key"></span>',
+        '<span id="k68" class="black key"></span>',
+        '<span id="k70" class="black key"></span>',
+        '<span class="spacer"></span>',
+        '<span id="k73" class="black key"></span>',
+        '<span id="k75" class="black key"></span>',
+        '<span class="spacer"></span>',
+        '<span id="k78" class="black key"></span>',
+        '<span id="k80" class="black key"></span>',
+        '<span id="k82" class="black key"></span>',
+      '</div>',
+      '<span id="k60" class="white key"></span>',
+      '<span id="k62" class="white key"></span>',
+      '<span id="k64" class="white key"></span>',
+      '<span id="k65" class="white key"></span>',
+      '<span id="k67" class="white key"></span>',
+      '<span id="k69" class="white key"></span>',
+      '<span id="k71" class="white key"></span>',
+      '<span id="k72" class="white key"></span>',
+      '<span id="k74" class="white key"></span>',
+      '<span id="k76" class="white key"></span>',
+      '<span id="k77" class="white key"></span>',
+      '<span id="k79" class="white key"></span>',
+      '<span id="k81" class="white key"></span>',
+      '<span id="k83" class="white key"></span>',
+    '</div>'
   ].join('');
 };
 
@@ -217,11 +203,12 @@ Functional.createWebSocket = function (host) {
 
   var ws = new WebSocket('ws://' + host + ':4321');
 
-  ws.onopen = function (error) {
-    if (error) {
-      return deferred.reject(new Error(error));
-    }
-    deferred.resolve(text);
+  ws.onerror = function (error) {
+    deferred.reject(new Error(error));
+  };
+
+  ws.onopen = function () {
+    deferred.resolve(ws);
   }
 
   return deferred.promise;
@@ -230,26 +217,3 @@ Functional.createWebSocket = function (host) {
 
 window.F = Functional;
 
-</code></pre>
-        </article>
-    </section>
-
-
-
-
-</div>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Functional.html">Functional</a></li></ul>
-</nav>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.1</a> on Mon Sep 19 2016 19:52:01 GMT+0200 (Paris, Madrid (heure d’été))
-</footer>
-
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
-</body>
-</html>

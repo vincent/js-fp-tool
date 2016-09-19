@@ -4,7 +4,7 @@
   "description": "Paris Web - Programmation fonctionnelle",
   "main": "main.js",
   "scripts": {
-    "start": "./node_modules/.bin/jsdoc -t `pwd`/doc-template -d doc js/tools.js && electron ."
+    "start": "./node_modules/.bin/jsdoc -t ./doc-template -d doc js/functional.js && electron ."
   },
   "repository": {
     "type": "git",

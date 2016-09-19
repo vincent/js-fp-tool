@@ -1,13 +1,13 @@
 var sampleRate = 44100; /* hard-coded in Flash player */
 
-var audioElement = new Audio();
-var webkitAudio = window.AudioContext || window.webkitAudioContext;
-var context = new webkitAudio();
-
 function AudioPlayer(generator, opts) {
     if (!opts) opts = {};
     var latency = opts.latency || 1;
     var checkInterval = latency * 100 /* in ms */
+
+    var audioElement = new Audio();
+    var webkitAudio = window.AudioContext || window.webkitAudioContext;
+    var context = new webkitAudio();
 
     var requestStop = false;
 

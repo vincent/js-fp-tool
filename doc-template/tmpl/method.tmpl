@@ -87,10 +87,6 @@ var self = this;
     <?js });
 } } ?>
 
-<?js if (data.returns && returns.length) { ?>
-<h5>Returns: <?js= returns.map(function(r) { return self.partial('returns.tmpl', r); }).join(', ') ?></h5>
-<?js } ?>
-
 <?js if (data.examples && examples.length) { ?>
     <h5>Example<?js= examples.length > 1? 's':'' ?></h5>
     <?js= this.partial('examples.tmpl', examples) ?>

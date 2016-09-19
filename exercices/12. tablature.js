@@ -2,10 +2,10 @@
 var keys = ['C','C#','D','D#','E','F', 'F#','G','G#', 'A', 'A#', 'B'];
 
 function noteNumberToKey(note) {
-		return keys[note % 12]+(Math.floor(note / 12)); 
+	return keys[note % 12]+(Math.floor(note / 12)); 
 }
 
-var names = F.simpleTrack().filter(function(n) {return n.subtype.match(/noteOn/)}).map(function (event) {
+var names = F.simpleTrack().filter(F.isNoteOn).map(function (event) {
   return noteNumberToKey(event.noteNumber);
 })
 

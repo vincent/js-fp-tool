@@ -1,8 +1,6 @@
 // start coding !
 
-F.loadRemote('midi/sml.mid', function(data) {
+F.loadRemote('midi/sml.mid', function(error, midi) {
 
-  midiFile = MidiFile(data)
-
-  F.playMidi(midiFile)
+  F.playMidi(midi)
 })

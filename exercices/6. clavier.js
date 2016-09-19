@@ -11,13 +11,13 @@ function next(tab, i) {
   if (i >= tab.length) return;
 
 
-  press(tab[i].noteNumber, tab[i].subtype == 'noteOn');
+  press(tab[i].noteNumber, F.isNoteOn(tab[i]));
 
-  if (tab[i+1] !== undefined) {
+  if (tab[i+1]) {
     setTimeout(function () { next(tab, i+1); }, tab[i+1].deltaTime*3);
   }
 }
 
-var track = F.simpleTrack().filter(function(n) {return n.subtype.match(/note/);});
+var track = F.simpleTrack().filter(F.isNote);
 
 next(track, 0);

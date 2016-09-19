@@ -1,4 +1,3 @@
-// start coding !
 
 function transpose(item) {
   if (item.subtype == 'noteOn') {
@@ -8,32 +7,27 @@ function transpose(item) {
 }
 
 function filter(midi) {
-  //midi.tracks[2].forEach(transpose);
+  midi.tracks[2].forEach(transpose);
   return midi;
 }
 
-function sendMidiFile (ws) {
+var websocket;
 
-  function sendMidi(midi) {
-    ws.send(JSON.stringify({type:'file', data:midi }));
-  }
+F.createWebSocket('127.0.0.1')
+  .then(function (ws) {
+    websocket = ws;
+    return F.loadRemotePromised('midi/sml.mid');
+  })
+  .then(function (midi) {
 
-  F.loadRemote('midi/sml.mid', function(data) {
-    midiFile = filter(MidiFile(data));
-
-    debugger;
-
-    sendMidi(midiFile);
+    midi = filter(midi);
 
     ws.onmessage = function (event) {
-      if (event.type != 'play') return;
-      var synth = Synth(44100);
-      var replayer = Replayer(midiFile, synth);
-      AudioPlayer(replayer);
+      if (event.type == 'play')
+        F.playMidi(midi);
     };
-  })
-}
 
-F.createWebSocket('127.0.0.1').then(sendMidiFile);
+    websocket.send(JSON.stringify({ type:'file', data:midi }));
+  })
 
 
