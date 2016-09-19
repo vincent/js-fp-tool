@@ -6,13 +6,24 @@
     <link rel="stylesheet" href="css/codemirror.css">
     <script src="js/codemirror.js"></script>
     <script src="js/codemirror.javascript.js"></script>
+    <link type="text/css" rel="stylesheet" href="doc/styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="doc/styles/jsdoc-default.css">
     <style type="text/css">
-    .CodeMirror {
-      height: auto
+    .CodeMirror { height: auto }
+    #apidoc { height: 38px; overflow: hidden; }
+    #apidoc.open { height: auto; }
+    #apidoc .details { display: none; }
+    .container-overview { display: none; }
+    html, body {
+        font-size: 12px;
+        line-height: 0.9;
     }
     </style>
   </head>
   <body>
+    <div id="apidoc"></div>
+
+    <h3 class="subsection-title">Code</h3>
     <div id="js" class="code_box">
       <textarea name="js">
 // start coding !
@@ -38,7 +49,7 @@ console.log("ici aussi");
 
     <script>
       // You can also require other files to run in this process
-      require('./index.js')
+      require('./lib/api.js')
     </script>
     <script src="js/editor.js"></script>
   </body>

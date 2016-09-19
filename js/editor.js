@@ -67,6 +67,11 @@ ipcRenderer.on('load-exercice', function (event, data) {
 
 document.querySelector('#run').addEventListener('click', run);
 
+document.querySelector('#apidoc').addEventListener('click', function () {
+  this.classList.toggle('open');
+});
+
+
 var saved;
 if (saved = localStorage.getItem('editor')) {
   js_editor.setValue(saved);
