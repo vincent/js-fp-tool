@@ -15,8 +15,17 @@
     #apidoc .details { display: none; }
     .container-overview { display: none; }
     html, body {
-        font-size: 12px;
-        line-height: 0.9;
+      font-size: 12px;
+      line-height: 0.9;
+    }
+    #output iframe {
+      min-height: 500px;
+      border: none;
+      width: 100%;
+    }
+    #output  {
+      margin: 10px;
+      padding: 0;
     }
     </style>
   </head>
@@ -44,7 +53,7 @@ console.log("ici aussi");
 
     <!-- Sandboxing -->
     <section id="output">
-      <iframe style="width: 100%;min-height: 500px;"></iframe>
+      <iframe></iframe>
     </section>
 
     <script>
