@@ -158,7 +158,8 @@ h2, h3.subsection-title
     font-size: 30px;
     font-weight: 700;
     letter-spacing: -1px;
-    margin-bottom: 12px;
+    margin-bottom: 18px;
+    margin-left: 0px;
 }
 
 h3
@@ -357,4 +358,19 @@ tr > th:last-child { border-right: 1px solid #ddd; }
     margin: 15px 0;
     display: block;
     border-bottom: 1px solid #eee;
+}
+
+article > * {
+    margin-left: 10px;
+}
+article > .name {
+    margin-left: 0;
+}
+
+article h5 {
+    font-weight: normal;
+}
+
+article > .name {
+    font-weight: bold;
 }

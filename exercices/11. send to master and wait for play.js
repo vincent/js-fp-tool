@@ -29,5 +29,8 @@ F.createWebSocket('127.0.0.1')
 
     websocket.send(JSON.stringify({ type:'file', data:midi }));
   })
+  .fail(function (error) {
+    console.error('shit happened', error);
+  });
 
 
