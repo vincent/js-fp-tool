@@ -215,6 +215,56 @@ Functional.playMidi = function(midi) {
 };
 
 /**
+ * passe une track en temps absolu
+ * @param {Array} track
+ * @return {Array} track
+ */
+Functional.toAbsoluteTime = function(track) {
+  function toAbsoluteTimeRec(srcTrack, tmpTrack, acc, index) {
+    if (index == srcTrack.length) {
+      return; 
+    }
+    const elt = F.clone(srcTrack[index]);
+    acc += elt.deltaTime;
+    delete elt.deltaTime;
+    elt.absTime = acc;
+    tmpTrack.push(elt);
+    index++;
+  
+    toAbsoluteTimeRec(srcTrack, tmpTrack, acc, index);
+  }
+
+  const result = []
+  toAbsoluteTimeRec(track, result, 0, 0); 
+  return result;
+}
+
+/**
+ * passe une track en temps relatif
+ * @param {Array} track
+ * @return {Array} track
+ */
+Functional.toDeltaTime = function(track) {
+  function toDeltaTimeRec(srcTrack, tmpTrack, index) {
+    if (index == srcTrack.length) {
+      return; 
+    }
+    const elt = F.clone(srcTrack[index]);
+    elt.deltaTime = (index == 0) ? 0 : srcTrack[index].absTime - srcTrack[index-1].absTime;
+    delete elt.absTime;
+    tmpTrack.push(elt);
+    index++;
+  
+    toDeltaTimeRec(srcTrack, tmpTrack, index);
+  }
+
+  const result = [];
+  toDeltaTimeRec(track, result, 0);
+  return result;
+}
+
+
+/**
  * Retourne un clavier en HTML.<br>
  *  - les touches ont un id="kXX" : XX est une note<br>
  *  - les touches acceptent une classe 'pressed'
