@@ -1,6 +1,6 @@
 // start coding !
 
-console.log("j'apparait dans la console :)");
+console.log("j'apparais dans la console :)");
 
 debugger;
 
