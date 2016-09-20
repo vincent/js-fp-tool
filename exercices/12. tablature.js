@@ -1,13 +1,5 @@
 
-var keys = ['C','C#','D','D#','E','F', 'F#','G','G#', 'A', 'A#', 'B'];
-
-function noteNumberToKey(note) {
-	return keys[note % 12]+(Math.floor(note / 12)); 
-}
-
-var names = F.simpleTrack().filter(F.isNoteOn).map(function (event) {
-  return noteNumberToKey(event.noteNumber);
-})
+var names = F.simpleTrack().filter(F.isNoteOn).map(F.eventToNoteName);
 
 function groupBy(arr, c) {
   var r = [];
@@ -18,20 +10,10 @@ function groupBy(arr, c) {
   return r;
 }
 
-var vf = new Vex.Flow.Factory({
-  renderer: {selector: 'sandbox', width: 600, height: 600}
+var sheet = F.musicSheet();
+
+groupBy(names, 4).forEach(function(group){
+  sheet.addNotes(group);
 });
 
-var score = vf.EasyScore();
-var system = vf.System();
-
-groupBy(names, 4).map(function(g){
-  system.addStave({
-    voices: [
-      score.voice(score.notes(g.join(', '), {stem: 'up'})).setStrict(false)
-    ]
-  }).addClef('treble');
-});
-
-vf.draw();
-
+sheet.draw();
