@@ -112,6 +112,54 @@ Functional.isNoteOff = function (event) {
 };
 
 /**
+ * Retourne les fichiers MIDI disponibles.
+ * @return {Array} Noms des fichiers MIDI
+ */
+Functional.allMidiFiles = function () {
+  return [
+    '50_cent',
+    'acdc_wmw',
+    'addams',
+    'all_apologies',
+    'amazing_grace',
+    'another_bite',
+    'around_the_world',
+    'bach',
+    'back_to_the_future',
+    'basshunter_camilla',
+    'batman',
+    'beatles_hey_jude',
+    'beethoven_ode_to_joy',
+    'beetlejuice',
+    'bitthedust',
+    'bob_marley_jammin',
+    'cantina09',
+    'cantina42',
+    'castlevania_lost_paintings',
+    'castlevania_walking',
+    'castlevania_waltz',
+    'castlevania_wicked',
+    'chimchimery',
+    'clasgitar',
+    'comes_sun',
+    'coolio_gangstas',
+    'dakota_katowice',
+    'deep_space',
+    'dp_around_the_world',
+    'god_save_the_queen',
+    'london_bridge_is_falling_down',
+    'manson_coma white',
+    'mozart',
+    'old_macdonald_had_a_farm',
+    'prelude',
+    'sml',
+    'starwars'
+  ].map(function (f) {
+    return 'midi/' + f + '.mid';
+  });
+};
+
+/**
  * Récupère un fichier MIDI.
  * @param {String}   path     URL
  * @param {Function} callback Callback de la forme function(error, midi)
@@ -168,8 +216,8 @@ Functional.playMidi = function(midi) {
 
 /**
  * Retourne un clavier en HTML.<br>
- *  - les touches ont un id="kXX" où XX est une note<br>
- *  - les touches peuvent prendre une classe 'pressed'<br>
+ *  - les touches ont un id="kXX" : XX est une note<br>
+ *  - les touches acceptent une classe 'pressed'
  * @return {String} HTML
  */
 Functional.keyboard = function () {
@@ -217,6 +265,43 @@ Functional.keyboard = function () {
     '</div>'
   ].join('');
 };
+
+/**
+ * Créer une partition musicale.
+ * @return {Object} Object contenant les méthodes addNotes() et draw()
+ */
+Functional.musicSheet = function () {
+  var vf = new Vex.Flow.Factory({
+    renderer: {selector: 'sandbox', width: 600, height: 600}
+  });
+
+  var score = vf.EasyScore();
+  var system = vf.System();
+
+  return {
+    draw: function () {
+      vf.draw();
+    },
+    addNotes: function (notes) {
+      system.addStave({
+        voices: [
+          score.voice(score.notes(notes.join(', '), {stem: 'up'})).setStrict(false)
+        ]
+      }).addClef('treble');
+    }
+  };
+}
+
+var noteNames = ['C','C#','D','D#','E','F', 'F#','G','G#', 'A', 'A#', 'B'];
+
+/**
+ * Retourne le nom d'une note depuis un event MIDI
+ * @param {Object} event Item MIDI
+ * @return {String} Nom de la note
+ */
+Functional.eventToNoteName = function (event) {
+  return noteNames[event.noteNumber % 12]+(Math.floor(event.noteNumber / 12)); 
+}
 
 /**
  * Crée un WebSocket et retourne une Promise.

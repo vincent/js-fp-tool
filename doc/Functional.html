@@ -978,6 +978,88 @@
 
     
 
+    <h4 class="name" id=".allMidiFiles"><span class="type-signature">F.</span>allMidiFiles<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Retourne les fichiers MIDI disponibles.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="functional.js.html">functional.js</a>, <a href="functional.js.html#line118">line 118</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="method-separator"></div>
+
+        
+            
+
+    
+
     <h4 class="name" id=".loadRemote"><span class="type-signature">F.</span>loadRemote<span class="signature">(path, callback)</span><span class="type-signature"> &rarr; {XMLHttpRequest}</span></h4>
 
     
@@ -1101,7 +1183,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functional.js.html">functional.js</a>, <a href="functional.js.html#line120">line 120</a>
+        <a href="functional.js.html">functional.js</a>, <a href="functional.js.html#line168">line 168</a>
     </li></ul></dd>
     
 
@@ -1232,7 +1314,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functional.js.html">functional.js</a>, <a href="functional.js.html#line149">line 149</a>
+        <a href="functional.js.html">functional.js</a>, <a href="functional.js.html#line197">line 197</a>
     </li></ul></dd>
     
 
@@ -1363,7 +1445,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functional.js.html">functional.js</a>, <a href="functional.js.html#line163">line 163</a>
+        <a href="functional.js.html">functional.js</a>, <a href="functional.js.html#line211">line 211</a>
     </li></ul></dd>
     
 
@@ -1402,8 +1484,8 @@
 
 <div class="description">
     Retourne un clavier en HTML.<br>
- - les touches ont un id="kXX" où XX est une note<br>
- - les touches peuvent prendre une classe 'pressed'<br>
+ - les touches ont un id="kXX" : XX est une note<br>
+ - les touches acceptent une classe 'pressed'
 </div>
 
 
@@ -1447,7 +1529,269 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functional.js.html">functional.js</a>, <a href="functional.js.html#line175">line 175</a>
+        <a href="functional.js.html">functional.js</a>, <a href="functional.js.html#line223">line 223</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="method-separator"></div>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".musicSheet"><span class="type-signature">F.</span>musicSheet<span class="signature">(element)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Créer une partition musicale.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Sélecteur DOM dans lequel créer la partition</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="functional.js.html">functional.js</a>, <a href="functional.js.html#line274">line 274</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="method-separator"></div>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".eventToNoteName"><span class="type-signature">F.</span>eventToNoteName<span class="signature">(event)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Retourne le nom d'une note depuis un event MIDI
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Item MIDI</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="functional.js.html">functional.js</a>, <a href="functional.js.html#line303">line 303</a>
     </li></ul></dd>
     
 
@@ -1578,7 +1922,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="functional.js.html">functional.js</a>, <a href="functional.js.html#line226">line 226</a>
+        <a href="functional.js.html">functional.js</a>, <a href="functional.js.html#line312">line 312</a>
     </li></ul></dd>
     
 
@@ -1626,7 +1970,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.1</a> on Tue Sep 20 2016 00:59:25 GMT+0200 (Paris, Madrid (heure d’été))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.1</a> on Tue Sep 20 2016 22:01:01 GMT+0200 (Paris, Madrid (heure d’été))
 </footer>
 
 <script> prettyPrint(); </script>
