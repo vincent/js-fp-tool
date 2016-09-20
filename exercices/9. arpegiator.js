@@ -7,19 +7,16 @@ Array.prototype.flatMap = function(lambda) {
 function transpose (interval, offset, note) {
   return F.extend(note, {
     noteNumber: note.noteNumber + interval,
-    deltaTime: note.deltaTime + offset,    
+    absTime: note.absTime + offset,    
   });
 }
 
 var midi = F.simpleMidi()
 
-midi.tracks[0] = midi.tracks[0].filter(F.isNote).flatMap(function(note){
+midi.tracks[0] = F.toDeltaTime(F.toAbsoluteTime(midi.tracks[0]).filter(F.isNote).flatMap(function(note){
+  return [note, transpose(2, 50, note), transpose(4, 100, note)];
+}))
 
-  return [note, transpose(2, 5, note), transpose(4, 8, note)];
 
-})
-
-console.log(midi);
-
-F.playMidi(midi)
+F.playMidi(midi);
 
