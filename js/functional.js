@@ -166,6 +166,8 @@ Functional.allMidiFiles = function () {
  * @return {XMLHttpRequest} Requete AJAX
  */
 Functional.loadRemote = function(path, callback) {
+  if (path && !callback) return Functional.loadRemotePromised(path);
+
   var fetch = new XMLHttpRequest();
   fetch.open('GET', path);
   fetch.overrideMimeType("text/plain; charset=x-user-defined");

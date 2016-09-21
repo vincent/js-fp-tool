@@ -7,7 +7,7 @@ function transpose(item) {
 }
 
 function filter(midi) {
-  //midi.tracks[2].forEach(transpose);
+  midi.tracks[2].forEach(transpose);
   return midi;
 }
 
