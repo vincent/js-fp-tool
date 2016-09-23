@@ -30,7 +30,7 @@ Functional.extend = function (object1, object2 /*...*/) {
 Functional.pipe = function () {
   var defs = Array.prototype.slice.call(arguments);
   return function (value) {
-    var funs = [].concat(value, defs);
+    var funs = [].concat([value], defs);
     return funs.reduce(function(v, f) {
       return v.constructor === Function ? v() : f(v);
     })
@@ -56,9 +56,8 @@ Functional.tap = function(fcn) {
  * @return {Object} même objet
  */
 Functional.trace = function(x) {
-  return Functional.tap(function(x) {
-    console.log(x);
-  });
+  console.log('trace:', x);
+  return x;
 }
 
 /**
