@@ -38,6 +38,48 @@ Functional.pipe = function () {
 };
 
 /**
+ * Permet d'appliquer une fonction à un point donné d'une 
+ * chaîne de fonctions sans casser la chaîne.
+ * @param {Function} fcn Fonction à appliquer à l'objet
+ * @return {Function} fonction s'insérant dans la chaîne
+ */
+Functional.tap = function(fcn) {
+  return function(elem) {
+    fcn(elem);
+    return elem;
+  }
+}
+
+/**
+ * Permet d'inspecter un objet à un point donné d'une chaîne de fonctions
+ * @param {Object} object Objet
+ * @return {Object} même objet
+ */
+Functional.trace = function(x) {
+  return Functional.tap(function(x) {
+    console.log(x);
+  });
+}
+
+/**
+ * Transforme une fonction non-curriée en fonction curriée
+ * @param {Function} uncurried fonction non curriée
+ * @return {Function} fonction curriée
+ */
+Functional.curry = function(uncurried) {
+  var args = [];
+  var curried = function(x) {
+      args.push(x);
+      if (args.length == uncurried.length) {
+        return uncurried.apply(this, args);
+      } else {
+        return curried;
+      }
+  };
+  return curried;
+}
+
+/**
  * Retourne un MIDI simple.
  * @return {Object} MIDI
  */
