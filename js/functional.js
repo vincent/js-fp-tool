@@ -376,6 +376,29 @@ Functional.createWebSocket = function (host) {
   return deferred.promise;
 };
 
+/**
+ * Effectue une requête à Wikipedia et renvoie une Promise.
+ * @param {String} query recherche Wikipedia
+ * @return {Promise} Promesse
+ */
+Functional.wikipedia = function(query) {
+  const u = new URLSearchParams();
+  u.append('action', 'query');
+  u.append('format', 'json');
+  u.append('prop', 'extracts');
+  u.append('exsentences', '10');
+  u.append('explaintext', '1');
+  u.append('redirects', '1');
+  u.append('titles', query);
+ 
+  const apiCall = fetch('http://fr.wikipedia.org/w/api.php?' + u);
+ 
+  return apiCall.then(function(response) {
+    return response.json().then(function(json) {
+      return json.query.pages[Object.keys(json.query.pages)[0]].extract;
+    });
+  });
+}
 
 window.F = Functional;
 
