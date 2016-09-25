@@ -443,3 +443,8 @@ Functional.wikipedia = function(query) {
 
 window.F = Functional;
 
+// monkey patch Array.flatMap
+Array.prototype.flatMap = function(lambda) { 
+  return Array.prototype.concat.apply([], this.map(lambda)) 
+};
+

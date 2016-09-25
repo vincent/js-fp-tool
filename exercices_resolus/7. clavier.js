@@ -1,6 +1,5 @@
 document.getElementById('sandbox').innerHTML = F.keyboard();
 
-
 function press(key, state) {
   document.getElementById('k'+key).classList.toggle("pressed", state);
 }
@@ -9,7 +8,6 @@ function press(key, state) {
 
 function next(tab, i) {
   if (i >= tab.length) return;
-
 
   press(tab[i].noteNumber, F.isNoteOn(tab[i]));
 
