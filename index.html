@@ -10,7 +10,7 @@
     <link type="text/css" rel="stylesheet" href="doc/styles/jsdoc-default.css">
     <style type="text/css">
     .CodeMirror { height: auto }
-    #apidoc { height: 38px; overflow: hidden; }
+    #apidoc { height: 0px; overflow: hidden; }
     #apidoc.open { height: auto; }
     #apidoc .details { display: none; }
     .container-overview { display: none; }
@@ -30,8 +30,6 @@
     </style>
   </head>
   <body>
-    <div id="apidoc"></div>
-
     <h3 class="subsection-title">Code</h3>
     <div id="js" class="code_box">
       <textarea name="js">
@@ -51,6 +49,9 @@ console.log("ici aussi");
     </div>
 
     <button id="run">Execute</button>
+    <button id="showdoc">Doc API</button>
+    <div id="apidoc"></div>
+
 
     <!-- Sandboxing -->
     <section id="output">
