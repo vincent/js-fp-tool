@@ -1,4 +1,10 @@
 /**
+Objectif: modifier la track 0 de `midi` pour répéter 
+chaque note une fois avec un léger décalage de 20 beats 
+et avec une vélocité divisée par 2
+
+Astuce: en midi 1 beat = une unité de temps. C'est une unité relative paramétrée
+par un attribut des headers de la track, ticksPerBeat
 
 Structure MIDI
 { header: { ... },
@@ -22,10 +28,6 @@ function transpose (note, dtime, velocity) {
 }
 
 var midi = F.simpleMidi()
-
-// modifier la track 0 de `midi` pour répéter des notes
-// en les décalant légèrement dans le temps
-// et en atténuant leur velocité
 
 F.playMidi(midi)
 

@@ -1,4 +1,6 @@
 /**
+Objectif: afficher la partition de la track.
+Ne pas gérer les durées des notes.
 
 Structure MIDI
 { header: { ... },

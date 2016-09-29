@@ -1,4 +1,10 @@
 /**
+Objectif: modifier la track 0 de `midi` 
+pour jouer chaque note un octave plus haut
+
+Astuce: utiliser F.extend(object, { ... }) qui retourne un clone d'object
+en lui passant les attributs à modifier.
+Astuce: en midi, +1 sur un noteNumber augmente la note d'un demi-ton.
 
 Structure MIDI
 { header: { ... },
@@ -22,11 +28,6 @@ function transpose (note, interval) {
 }
 
 var midi = F.simpleMidi()
-
-// modifier la track 0 de `midi` 
-// pour jouer chaque note un octave plus haut
-// utiliser F.extend(object, { ... }) qui retourne un clone d'object
-// en lui fixant les attributs passés
 
 F.playMidi(midi)
 

@@ -1,4 +1,7 @@
 /**
+Objectif: programmer un effet chord avancé, prenant en paramètre des gammes prédéfinies et faire que l'ensemble sonne bien.
+Pour info: level hardcore ;)
+
 
 Structure MIDI
 { header: { ... },
@@ -15,16 +18,32 @@ Structure MIDI
 
 */
 
-function transpose (note, interval) {
-  return F.extend(note, {
-    // attributs à remplacer
-  })
-}
+var midi = F.simpleMidi();
+midi.header.ticksPerBeat = 120;
 
-var midi = F.simpleMidi()
+midi.tracks[0] = [
+  {channel: 0, deltaTime: 0,   noteNumber: 60, subtype: "noteOn",  type: "channel", velocity: 110},
+  {channel: 0, deltaTime: 100, noteNumber: 60, subtype: "noteOff", type: "channel", velocity: 110},
+  {channel: 0, deltaTime: 100, noteNumber: 62, subtype: "noteOn",  type: "channel", velocity: 110},
+  {channel: 0, deltaTime: 100, noteNumber: 62, subtype: "noteOff", type: "channel", velocity: 110},
+  {channel: 0, deltaTime: 100, noteNumber: 64, subtype: "noteOn",  type: "channel", velocity: 110},
+  {channel: 0, deltaTime: 100, noteNumber: 64, subtype: "noteOff", type: "channel", velocity: 110},
+  {channel: 0, deltaTime: 100, noteNumber: 65, subtype: "noteOn",  type: "channel", velocity: 110},
+  {channel: 0, deltaTime: 100, noteNumber: 65, subtype: "noteOff", type: "channel", velocity: 110},
+ 
+  {channel: 0, deltaTime: 100, noteNumber: 64, subtype: "noteOn",  type: "channel", velocity: 110},
+  {channel: 0, deltaTime: 100, noteNumber: 64, subtype: "noteOff", type: "channel", velocity: 110},
+  {channel: 0, deltaTime: 100, noteNumber: 65, subtype: "noteOn",  type: "channel", velocity: 110},
+  {channel: 0, deltaTime: 100, noteNumber: 65, subtype: "noteOff", type: "channel", velocity: 110},
+  {channel: 0, deltaTime: 100, noteNumber: 67, subtype: "noteOn",  type: "channel", velocity: 110},
+  {channel: 0, deltaTime: 100, noteNumber: 67, subtype: "noteOff", type: "channel", velocity: 110},
+  {channel: 0, deltaTime: 100, noteNumber: 69, subtype: "noteOn",  type: "channel", velocity: 110},
+  {channel: 0, deltaTime: 200, noteNumber: 69, subtype: "noteOff", type: "channel", velocity: 110}
+];
 
-// modifier la track 0 de `midi` 
-// pour ajouter des accords à chaque note
+midi.tracks[0] = midi.tracks[0].filter(F.isNote).flatMap(function(note) {return chord(note);})
+
+console.log(midi);
 
 F.playMidi(midi)
 

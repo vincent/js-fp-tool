@@ -1,4 +1,8 @@
 /**
+Objectif: modifier la track 0 de `midi` 
+pour remplacer chaque note par un accord {note, note + 1 ton, note + 2 tons}
+
+Astuce: en midi, +1 sur un noteNumber augmente la note d'un demi-ton.
 
 Structure MIDI
 { header: { ... },
@@ -23,8 +27,7 @@ function transpose (note, interval) {
 
 var midi = F.simpleMidi()
 
-// modifier la track 0 de `midi` 
-// pour ajouter des accords à chaque note
+
 
 F.playMidi(midi)
 
